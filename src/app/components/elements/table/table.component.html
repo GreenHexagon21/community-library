@@ -1,0 +1,23 @@
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Title</th>
+			<th scope="col">Author</th>
+			<th scope="col">Status</th>
+      <th scope="col">ISBN</th>
+      <th scope="col">Rating</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let book of books; index as i">
+			<td>
+				{{ book.title }}
+			</td>
+			<td>{{ book.author}}</td>
+			<td>{{ book.status}}</td>
+      <td>{{ book.ISBN}}</td>
+      <td>{{ book.rating}}</td>
+		</tr>
+	</tbody>
+</table>

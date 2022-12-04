@@ -9,6 +9,10 @@ import { RegisterComponent } from './components/pages/register/register.componen
 import { MainComponent } from './components/pages/main/main.component';
 import { BookComponent } from './components/pages/details/book/book.component';
 import { UserComponent } from './components/pages/details/user/user.component';
+import { AddBookComponent } from './components/pages/add/add-book/add-book.component';
+import { TableComponent } from './components/elements/table/table.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,11 +22,15 @@ import { UserComponent } from './components/pages/details/user/user.component';
     RegisterComponent,
     MainComponent,
     BookComponent,
-    UserComponent
+    UserComponent,
+    AddBookComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,6 @@
+import { Book } from './../../../shared/book';
 import { Component } from '@angular/core';
+import { Status } from 'src/app/shared/status';
 
 @Component({
   selector: 'app-main',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent {
+
+
 
 }
