@@ -1,14 +1,28 @@
 import { Book } from './../../../shared/book';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Status } from 'src/app/shared/status';
+import { CommunicationService } from 'src/app/services/communication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent {
+export class TableComponent implements OnInit{
 
+  tableBooks : Book[];
+
+  constructor(private communicationService: CommunicationService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.tableBooks = this.communicationService.getBooks();
+  }
+
+  navToBook(id:number) {
+    this.router.navigate(['book/' + id]);
+  }
+/*
   books : Book[] = [{
     id: 1,
     title: "Cooking with E621",
@@ -30,5 +44,5 @@ export class TableComponent {
     description: "How to train your dragons but better"
   }
 ]
-
+*/
 }

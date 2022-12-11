@@ -7,17 +7,17 @@
 			<th scope="col">Status</th>
       <th scope="col">ISBN</th>
       <th scope="col">Rating</th>
+      <th scope="col"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let book of books; index as i">
-			<td>
-				{{ book.title }}
-			</td>
+		<tr *ngFor="let book of tableBooks; index as i">
+			<td>{{ book.title }}</td>
 			<td>{{ book.author}}</td>
 			<td>{{ book.status}}</td>
       <td>{{ book.ISBN}}</td>
       <td>{{ book.rating}}</td>
+      <td><button class="btn btn-primary" (click)="navToBook(book.id)">View</button></td>
 		</tr>
 	</tbody>
 </table>
