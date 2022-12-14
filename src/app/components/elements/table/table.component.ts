@@ -16,8 +16,11 @@ export class TableComponent implements OnInit{
   constructor(private communicationService: CommunicationService, private router: Router) {}
 
   ngOnInit(): void {
-    this.tableBooks = this.communicationService.getBooks();
+    this.communicationService.getBooksFromAPI().subscribe(data => {
+      this.tableBooks = data;
+    })
   }
+
 
   navToBook(id:number) {
     this.router.navigate(['book/' + id]);

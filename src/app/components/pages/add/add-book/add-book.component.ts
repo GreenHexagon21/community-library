@@ -6,6 +6,7 @@ import { Status } from 'src/app/shared/status';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/shared/user';
+import { BookDTO } from 'src/app/shared/book-dto';
 
 @Component({
   selector: 'app-add-book',
@@ -19,7 +20,7 @@ export class AddBookComponent implements OnInit,OnDestroy {
   bookForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     author: new FormControl('', [Validators.required]),
-    ISBN: new FormControl('', [Validators.required]),
+    isbn: new FormControl('', [Validators.required]),
     image: new FormControl(''),
     description: new FormControl('')
   })
@@ -38,19 +39,19 @@ export class AddBookComponent implements OnInit,OnDestroy {
   }
 
   addBook() {
-    var addedBook : Book  = {id: this.id,
-      title: this.bookForm.get('title').value ,
-      author: this.bookForm.get('author').value,
-      status: Status.Ready,
-      ISBN:this.bookForm.get('ISBN').value,
-      rating:0,
-      image: this.bookForm.get('image').value,
-      description:this.bookForm.get('description').value,
-      addedBy: this.currentUser.id
+    var addedBook : BookDTO  = {
+      addedBy: 1,
+      Title: this.bookForm.get('title').value ,
+      Author: this.bookForm.get('author').value,
+      isbn:this.bookForm.get('isbn').value,
+      Rating:0,
+      Image: this.bookForm.get('image').value,
+      Description:this.bookForm.get('description').value,
+      Status: "Ready",
+
     }
-    this.communicationService.addBook(addedBook)
-    this.id = this.communicationService.getCurrentId()
-    this.currentUser.books.push(addedBook)
+   // this.id = this.communicationService.getCurrentId()
+    this.communicationService.postBooktoAPI(addedBook);
   }
 
 }

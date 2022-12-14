@@ -5,9 +5,9 @@ export interface Book {
   title: string;
   author: string;
   status: Status
-  ISBN: string;
+  isbn: string;
   rating: number;
   image?: string;
   description?: string;
-  addedBy:string;
+  addedBy:number;
 }

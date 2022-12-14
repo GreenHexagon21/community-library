@@ -1,4 +1,4 @@
-<button (click)="switchMode()" class="btn btn-primary">Register</button>
+<h3>Login/Register</h3>
 <form  [formGroup]="registerForm" (ngSubmit)="registerOrLogin()">
   <div class="form-group">
     <label for="Email">Email address</label>
@@ -11,3 +11,4 @@
   </div>
   <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary">Submit</button>
 </form>
+
