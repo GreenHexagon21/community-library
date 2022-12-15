@@ -23,7 +23,7 @@ export class CommunicationService {
     return this.http.get<Book[]>(this.url+"/Books");
   }
   getBookFromAPI(id:number) {
-    return this.http.get<Book>(this.url+"/Books/"+id);
+    return firstValueFrom(this.http.get<Book>(this.url+"/Books/"+id));
   }
   postBooktoAPI(book:BookDTO) {
     return firstValueFrom(this.http.post(this.url + "/Books", book));
@@ -43,16 +43,17 @@ export class CommunicationService {
   }
 
   getUsersFromApi() {
-    return this.http.get<User[]>(this.url+"/users");
+    return firstValueFrom(this.http.get<User[]>(this.url+"/users"));
   }
   loginUserUsingAPI(username: string, password:string) {
-    return this.http.post(this.url+"/users/login",{Username:username,Password:password});
+    return firstValueFrom(this.http.post(this.url+"/users/login",{Username:username,Password:password}));
   }
   registerUserUsingApi(username:string, password: string) {
-    return this.http.post(this.url+"/users",{Username:username,Password:password});
+    return firstValueFrom(this.http.post(this.url+"/users",{Username:username,Password:password}));
   }
   getUserFromAPI(id:number) {
-    return this.http.get<User>(this.url+"/users/"+id);
+   return firstValueFrom(this.http.get<User>(this.url+"/users/"+id));
   }
+
 
 }

@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   isAuth = false;
+  loaded = false;
   private userSub: Subscription;
 
   constructor(private authService:AuthService) { }
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.isAuth = !!localStorage.getItem('currentUser')
+    this.loaded = true;
   }
   logout() {
     localStorage.removeItem('currentUser')

@@ -10,15 +10,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit{
-
   tableBooks : Book[];
+  searchedBooks : Book[];
+  Status = Status;
+  searchTerm = "";
 
   constructor(private communicationService: CommunicationService, private router: Router) {}
 
   ngOnInit(): void {
     this.communicationService.getBooksFromAPI().subscribe(data => {
       this.tableBooks = data;
+      this.searchedBooks = this.tableBooks;
     })
+  }
+
+  Search() {
+    let bookContainer: Book[] = []
+
+    bookContainer = this.tableBooks.filter(recipe => recipe.title.toLocaleLowerCase().includes(this.searchTerm.toLocaleLowerCase()));
+    console.log(bookContainer);
+    this.searchedBooks = bookContainer
+
   }
 
 

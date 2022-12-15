@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   isAuth = false;
   pwd!: string;
   error: string = "";
+  badRequest : boolean = false;
   private userSub: Subscription;
 
   constructor(private authService: AuthService, private router: Router,private communicationService:CommunicationService) { }
@@ -36,26 +37,26 @@ export class RegisterComponent implements OnInit, OnDestroy {
     password: new FormControl('', [Validators.required])
   })
 
-  registerOrLogin() {
+  async registerOrLogin() {
 
     const username = this.registerForm.get('email').value;
     const password = this.registerForm.get('password').value;
-    this.communicationService.getUsersFromApi().subscribe(data => {
+    await this.communicationService.getUsersFromApi().then(async data => {
       let finder = data.find(u => u.username == username)
       if (finder) {
-        this.communicationService.loginUserUsingAPI(username,password).subscribe(user => {
+        await this.communicationService.loginUserUsingAPI(username,password).then(user => {
           localStorage.setItem('currentUser', JSON.stringify(user))
         });
       } else {
-        this.communicationService.registerUserUsingApi(username,password).subscribe(
+        await this.communicationService.registerUserUsingApi(username,password).then(
           reg => {
             //console.log(reg);
           }
-        );
+        ).catch( () => this.badRequest=true);
 
       }
     })
-    if (localStorage.getItem('currentUser')) {
+    if (!this.badRequest) {
       this.router.navigate(['main']);
     }
     this.registerForm.reset();

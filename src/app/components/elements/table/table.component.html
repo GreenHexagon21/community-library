@@ -14,10 +14,40 @@
 		<tr *ngFor="let book of tableBooks; index as i">
 			<td>{{ book.title }}</td>
 			<td>{{ book.author}}</td>
-			<td>{{ book.status}}</td>
+			<td>{{ Status[book.status]}}</td>
       <td>{{ book.isbn}}</td>
-      <td>{{ book.rating}}</td>
+      <td> <p-rating [ngModel]="((book.rating +5)/2)" [readonly]="true" [cancel]="false"></p-rating></td>
       <td><button class="btn btn-primary" (click)="navToBook(book.id)">View</button></td>
 		</tr>
 	</tbody>
 </table>
+<p-table #books [value]="searchedBooks" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="caption">
+    <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" [(ngModel)]="searchTerm" (ngModelChange)="Search()"  placeholder="Search keyword" />
+        </span>
+    </div>
+</ng-template>
+  <ng-template pTemplate="header">
+      <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Rating</th>
+          <th></th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-book>
+      <tr>
+          <td>{{book.title}}</td>
+          <td>{{book.author}}</td>
+          <td>{{Status[book.status]}}</td>
+          <td>{{book.isbn}}</td>
+          <td> <p-rating [ngModel]="((book.rating +5)/2)" [readonly]="true" [cancel]="false"></p-rating></td>
+          <td><button class="btn btn-primary" (click)="navToBook(book.id)">View</button></td>
+      </tr>
+  </ng-template>
+</p-table>

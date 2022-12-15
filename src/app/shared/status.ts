@@ -1,6 +1,6 @@
 export enum Status {
-  GivenOut = 0,
-  Ready = 1,
-  Recieved = 2,
+  Ready = 0,
+  Requested = 1,
+  GivenOut = 2,
   WayBack = 3
 }

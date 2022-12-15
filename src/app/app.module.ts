@@ -14,6 +14,10 @@ import { TableComponent } from './components/elements/table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {RatingModule} from 'primeng/rating';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,10 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     FormsModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RatingModule,
+    MenuModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

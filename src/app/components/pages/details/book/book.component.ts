@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Book } from 'src/app/shared/book';
 import { User } from 'src/app/shared/user';
 
+
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
@@ -13,24 +14,32 @@ export class BookComponent  implements OnInit{
   id:number;
   book:Book;
   owner: User;
+  owned: boolean = true;
+  currentUser : User;
+  loaded: boolean = false;
+  rating : number;
 
 
   constructor( private route: ActivatedRoute, private communicationService: CommunicationService) {
 
   }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
       }
     )
-    this.communicationService.getBookFromAPI(this.id).subscribe(data => {
+    await this.communicationService.getBookFromAPI(this.id).then( data => {
       this.book = data;
-      this.communicationService.getUserFromAPI(this.book.addedBy).subscribe(u => {
-        this.owner = u;
-        console.log(u);
-      })
     })
+    await this.communicationService.getUserFromAPI(this.book.addedBy).then(u => {
+      this.owner = u;
+    })
+    this.loaded = true;
+    if(this.owner.id != this.currentUser.id) {
+      this.owned = false;
+    }
   }
 
 }

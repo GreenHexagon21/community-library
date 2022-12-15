@@ -13,10 +13,9 @@ import { BookDTO } from 'src/app/shared/book-dto';
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.scss']
 })
-export class AddBookComponent implements OnInit,OnDestroy {
+export class AddBookComponent implements OnInit {
   id : number
   currentUser :User;
-  private userSub: Subscription;
   bookForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     author: new FormControl('', [Validators.required]),
@@ -28,19 +27,13 @@ export class AddBookComponent implements OnInit,OnDestroy {
   constructor(private communicationService: CommunicationService, private authService:AuthService) {
     this.id = communicationService.getCurrentId()
   }
-  ngOnDestroy(): void {
-    this.userSub.unsubscribe();
-  }
-
   ngOnInit(): void {
-    this.userSub = this.authService.user.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   addBook() {
     var addedBook : BookDTO  = {
-      addedBy: 1,
+      addedBy: this.currentUser.id,
       Title: this.bookForm.get('title').value ,
       Author: this.bookForm.get('author').value,
       isbn:this.bookForm.get('isbn').value,
